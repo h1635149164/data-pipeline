@@ -71,8 +71,9 @@ def push_schemas_to_snippet(
     misc_snippet_target: str = DEFAULT_MISC_SNIPPET_ENDPOINT,
     schemas_dir: str | Path = "schemas",
     client: httpx.Client | None = None,
+    files_filter: list[str] | list[Path] | None = None,
 ) -> list[str]:
-    """Read all JSON schemas in schemas_dir and push them to the misc snippet (snippet 5),
+    """Read JSON schemas in schemas_dir and push them to the misc snippet (snippet 5),
     and update misc.json in the main snippet (snippet 2).
 
     Args:
@@ -80,9 +81,10 @@ def push_schemas_to_snippet(
         misc_snippet_target:  Full GitLab Snippet API endpoint for the misc snippet (defaults to snippet 5).
         schemas_dir:          Path to directory containing schema JSON files.
         client:               httpx.Client instance (required).
+        files_filter:         Optional list of filenames or paths to selectively push.
 
     Returns:
-        List of schema file paths that were pushed.
+        List of schema file names that were pushed.
 
     Raises:
         ValueError:        When client is missing, directory has no schema JSON files,
@@ -100,6 +102,16 @@ def push_schemas_to_snippet(
     if not schema_files:
         raise ValueError(f"No schema JSON files found in {schemas_dir}")
 
+    filter_names: set[str] | None = None
+    if files_filter is not None:
+        filter_names = {Path(item).name for item in files_filter}
+        schema_files_to_push = [f for f in schema_files if f.name in filter_names]
+        if not schema_files_to_push:
+            logger.info("No schema files matched the specified filter: %s", files_filter)
+            return []
+    else:
+        schema_files_to_push = schema_files
+
     web_url = misc_snippet_target
     try:
         resp = client.get(misc_snippet_target, headers={"PRIVATE-TOKEN": cfg.token})
@@ -110,9 +122,7 @@ def push_schemas_to_snippet(
         logger.warning("Could not fetch misc snippet metadata for web_url: %s", exc)
 
     files_to_push = []
-    schema_names = []
-
-    for sfile in schema_files:
+    for sfile in schema_files_to_push:
         fn = sfile.name
         raw_text = sfile.read_text(encoding="utf-8")
         try:
@@ -126,9 +136,10 @@ def push_schemas_to_snippet(
                 "content": raw_text,
             }
         )
-        schema_names.append(fn)
 
-    # 1. Push schema files to the dedicated misc snippet (snippet 5)
+    schema_names = [f.name for f in schema_files]
+
+    # 1. Push matching schema files to the dedicated misc snippet (snippet 5)
     upsert_snippet_files(
         snippet_target=misc_snippet_target,
         files=files_to_push,

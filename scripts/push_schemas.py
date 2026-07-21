@@ -32,6 +32,8 @@ logger = logging.getLogger(__name__)
 
 def main() -> None:
     """Execute schema push utility."""
+    files_filter = sys.argv[1:] if len(sys.argv) > 1 else None
+
     config_env = os.environ.get("OPENBUDGET_CONFIG")
     if config_env:
         cfg = config.from_json(config_env)
@@ -45,7 +47,10 @@ def main() -> None:
 
     misc_snippet_target = os.environ.get("OPENBUDGET_MISC_ENDPOINT", DEFAULT_MISC_SNIPPET_ENDPOINT)
     schemas_dir = project_root / "schemas"
-    logger.info("Pushing schemas from '%s' to misc snippet %s...", schemas_dir, misc_snippet_target)
+    if files_filter:
+        logger.info("Pushing specific schemas %s from '%s' to misc snippet %s...", files_filter, schemas_dir, misc_snippet_target)
+    else:
+        logger.info("Pushing schemas from '%s' to misc snippet %s...", schemas_dir, misc_snippet_target)
 
     with httpx.Client(timeout=30.0) as client:
         pushed = push_schemas_to_snippet(
@@ -53,6 +58,7 @@ def main() -> None:
             misc_snippet_target=misc_snippet_target,
             schemas_dir=schemas_dir,
             client=client,
+            files_filter=files_filter,
         )
 
     logger.info("Successfully pushed %d schema file(s):", len(pushed))

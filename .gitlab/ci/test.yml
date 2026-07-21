@@ -6,7 +6,4 @@ test:
     - uv run pytest -v
     - uv run mypy src
     - uv run ruff check
-  artifacts:
-    when: always
-    paths:
-      - .coverage
+

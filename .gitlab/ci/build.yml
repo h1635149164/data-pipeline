@@ -16,6 +16,7 @@ build:
     paths:
       - $CONTAINER_ARCHIVE
     expire_in: 1 week
-  only:
-    - main
-    - tags
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_TAG'
+

@@ -125,3 +125,51 @@ def test_push_schemas_to_snippet_success(tmp_path: Path) -> None:
     assert len(pushed) == 2
     assert "a.schema.json" in pushed
     assert "b.schema.json" in pushed
+
+
+@respx.mock
+def test_push_schemas_to_snippet_filtered(tmp_path: Path) -> None:
+    """Test push_schemas_to_snippet only pushes files matching files_filter."""
+    cfg = config(endpoint="https://gitlab.example.com/api/v4/snippets/2", token="tok", interval=3600)
+    misc_endpoint = "https://gitlab.example.com/api/v4/snippets/5"
+
+    (tmp_path / "a.schema.json").write_text('{"title": "Schema A"}', encoding="utf-8")
+    (tmp_path / "b.schema.json").write_text('{"title": "Schema B"}', encoding="utf-8")
+
+    respx.get(misc_endpoint).respond(json={"id": 5, "web_url": "https://gitlab.example.com/snippets/5", "files": []})
+    respx.put(misc_endpoint).respond(json={"id": 5, "title": "misc"})
+    respx.get("https://gitlab.example.com/api/v4/snippets/2").respond(json={"id": 2, "web_url": "https://gitlab.example.com/snippets/2", "files": []})
+    respx.put("https://gitlab.example.com/api/v4/snippets/2").respond(json={"id": 2, "title": "open-data"})
+
+    with httpx.Client() as client:
+        pushed = push_schemas_to_snippet(
+            cfg,
+            misc_snippet_target=misc_endpoint,
+            schemas_dir=tmp_path,
+            client=client,
+            files_filter=["schemas/a.schema.json"],
+        )
+
+    assert len(pushed) == 1
+    assert pushed == ["a.schema.json"]
+
+
+@respx.mock
+def test_push_schemas_to_snippet_filtered_no_matches(tmp_path: Path) -> None:
+    """Test push_schemas_to_snippet returns empty list when files_filter yields no matches."""
+    cfg = config(endpoint="https://gitlab.example.com/api/v4/snippets/2", token="tok", interval=3600)
+    misc_endpoint = "https://gitlab.example.com/api/v4/snippets/5"
+
+    (tmp_path / "a.schema.json").write_text('{"title": "Schema A"}', encoding="utf-8")
+
+    with httpx.Client() as client:
+        pushed = push_schemas_to_snippet(
+            cfg,
+            misc_snippet_target=misc_endpoint,
+            schemas_dir=tmp_path,
+            client=client,
+            files_filter=["schemas/nonexistent.schema.json"],
+        )
+
+    assert pushed == []
+

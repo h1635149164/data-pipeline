@@ -3,7 +3,15 @@ stages:
   - schemas
   - build
 
+variables:
+  GIT_CONFIG_COUNT: "2"
+  GIT_CONFIG_KEY_0: "url.https://gitlab.h163.xyz/.insteadOf"
+  GIT_CONFIG_VALUE_0: "http://gitlab/"
+  GIT_CONFIG_KEY_1: "url.https://gitlab.h163.xyz/.insteadOf"
+  GIT_CONFIG_VALUE_1: "https://gitlab/"
+
 include:
   - local: .gitlab/ci/test.yml
   - local: .gitlab/ci/schemas.yml
   - local: .gitlab/ci/build.yml
+

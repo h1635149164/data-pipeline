@@ -2,11 +2,35 @@ schemas:
   stage: schemas
   image: ghcr.io/astral-sh/uv:python3.14-bookworm-slim
   script:
+    - |
+      if [ -n "$CONFIG_JSON" ]; then
+        echo "$CONFIG_JSON" > config.json
+      elif [ -n "$OPENBUDGET_CONFIG_JSON" ]; then
+        echo "$OPENBUDGET_CONFIG_JSON" > config.json
+      elif [ -n "$OPENBUDGET_CONFIG" ] && [ "${OPENBUDGET_CONFIG#\{}" != "$OPENBUDGET_CONFIG" ]; then
+        echo "$OPENBUDGET_CONFIG" > config.json
+      fi
+      export OPENBUDGET_CONFIG="config.json"
+    - |
+      MODIFIED_SCHEMAS=""
+      if [ "$CI_PIPELINE_SOURCE" = "web" ]; then
+        echo "Pipeline triggered manually via web UI - pushing all schemas."
+      elif [ -n "$CI_COMMIT_BEFORE_SHA" ] && [ "$CI_COMMIT_BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+        MODIFIED_SCHEMAS=$(git diff --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" 2>/dev/null | grep '^schemas/' || true)
+      else
+        MODIFIED_SCHEMAS=$(git diff-tree --no-commit-id --name-only -r "$CI_COMMIT_SHA" 2>/dev/null | grep '^schemas/' || true)
+      fi
+
+      if [ "$CI_PIPELINE_SOURCE" != "web" ] && [ -z "$MODIFIED_SCHEMAS" ]; then
+        echo "No modified schema files found in push commit $CI_COMMIT_SHA. Skipping push."
+        exit 0
+      fi
     - uv sync --frozen
-    - uv run python scripts/push_schemas.py
+    - uv run python scripts/push_schemas.py $MODIFIED_SCHEMAS
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
       changes:
         - schemas/*
         - schemas/**/*
     - if: '$CI_PIPELINE_SOURCE == "web"'
+
