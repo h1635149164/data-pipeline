@@ -140,20 +140,34 @@ class config:
     def from_env(cls) -> "config":
         """Load config from environment variables.
 
-        Required variables: ``OPENBUDGET_ENDPOINT``, ``OPENBUDGET_TOKEN``,
-        ``OPENBUDGET_INTERVAL``.
+        Supported variables:
+          - Endpoint: ``OPENBUDGET_ENDPOINT`` or ``GITLAB_SNIPPETS_ENDPOINT``
+          - Token:    ``OPENBUDGET_TOKEN`` or ``GITLAB_SNIPPETS_API_TOKEN``
+          - Interval: ``OPENBUDGET_INTERVAL`` (defaults to 3600 if using GITLAB_SNIPPETS_*)
 
         Raises:
             ValueError: When required variables are missing or invalid.
         """
+        endpoint = os.environ.get(_ENV_ENDPOINT) or os.environ.get("GITLAB_SNIPPETS_ENDPOINT")
+        token = os.environ.get(_ENV_TOKEN) or os.environ.get("GITLAB_SNIPPETS_API_TOKEN")
+        interval_str = os.environ.get(_ENV_INTERVAL)
+
+        if not endpoint:
+            raise ValueError(f"Missing required environment variable: {_ENV_ENDPOINT} or GITLAB_SNIPPETS_ENDPOINT")
+        if not token:
+            raise ValueError(f"Missing required environment variable: {_ENV_TOKEN} or GITLAB_SNIPPETS_API_TOKEN")
+        if not interval_str:
+            if os.environ.get("GITLAB_SNIPPETS_ENDPOINT") or os.environ.get("GITLAB_SNIPPETS_API_TOKEN"):
+                interval_str = "3600"
+            else:
+                raise ValueError(f"Missing required environment variable: {_ENV_INTERVAL}")
+
         try:
             return cls(
-                endpoint=os.environ[_ENV_ENDPOINT],
-                token=os.environ[_ENV_TOKEN],
-                interval=int(os.environ[_ENV_INTERVAL]),
+                endpoint=endpoint,
+                token=token,
+                interval=int(interval_str),
             )
-        except KeyError as exc:
-            raise ValueError(f"Missing required environment variable: {exc}")
         except (TypeError, ValueError) as exc:
             raise ValueError(f"Invalid value in environment variable: {exc}")
 

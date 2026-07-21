@@ -1,0 +1,124 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: "3.14"
+
+      - name: Install Dependencies
+        run: uv sync --frozen
+
+      - name: Run Tests
+        run: uv run pytest -v
+
+      - name: Run Type Checker
+        run: uv run mypy src
+
+      - name: Run Linter
+        run: uv run ruff check
+
+  schemas:
+    name: Sync Schemas
+    needs: test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    env:
+      CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
+      OPENBUDGET_CONFIG_JSON: ${{ secrets.OPENBUDGET_CONFIG_JSON }}
+      OPENBUDGET_CONFIG_SECRET: ${{ secrets.OPENBUDGET_CONFIG }}
+      GITLAB_SNIPPETS_API_TOKEN: ${{ secrets.GITLAB_SNIPPETS_API_TOKEN }}
+      GITLAB_SNIPPETS_ENDPOINT: ${{ secrets.GITLAB_SNIPPETS_ENDPOINT }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: "3.14"
+
+      - name: Prepare Config & Check Filter
+        id: prepare
+        run: |
+          if [ -n "$GITLAB_SNIPPETS_API_TOKEN" ] && [ -n "$GITLAB_SNIPPETS_ENDPOINT" ]; then
+            echo "Building config.json from GITLAB_SNIPPETS_* secrets..."
+            printf '{\n  "endpoint": "%s",\n  "token": "%s",\n  "interval": 3600\n}\n' "$GITLAB_SNIPPETS_ENDPOINT" "$GITLAB_SNIPPETS_API_TOKEN" > config.json
+          elif [ -n "$CONFIG_JSON" ]; then
+            echo "$CONFIG_JSON" > config.json
+          elif [ -n "$OPENBUDGET_CONFIG_JSON" ]; then
+            echo "$OPENBUDGET_CONFIG_JSON" > config.json
+          elif [ -n "$OPENBUDGET_CONFIG_SECRET" ] && [ "${OPENBUDGET_CONFIG_SECRET#\{}" != "$OPENBUDGET_CONFIG_SECRET" ]; then
+            echo "$OPENBUDGET_CONFIG_SECRET" > config.json
+          fi
+          export OPENBUDGET_CONFIG="config.json"
+
+          if [ ! -f "config.json" ] && [ -z "$OPENBUDGET_ENDPOINT" ] && [ -z "$GITLAB_SNIPPETS_ENDPOINT" ]; then
+            echo "WARNING: Config file 'config.json' and secrets are missing. Skipping schema push."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          MODIFIED_SCHEMAS=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Workflow triggered manually via web UI - pushing all schemas."
+          elif [ -n "${{ github.event.before }}" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            MODIFIED_SCHEMAS=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" 2>/dev/null | grep '^schemas/' || true)
+          else
+            MODIFIED_SCHEMAS=$(git diff-tree --no-commit-id --name-only -r "${{ github.sha }}" 2>/dev/null | grep '^schemas/' || true)
+          fi
+
+          if [ "${{ github.event_name }}" != "workflow_dispatch" ] && [ -z "$MODIFIED_SCHEMAS" ]; then
+            echo "No modified schema files found in commit ${{ github.sha }}. Skipping push."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "MODIFIED_SCHEMAS=$MODIFIED_SCHEMAS" >> "$GITHUB_ENV"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+      - name: Install Dependencies & Push Schemas
+        if: steps.prepare.outputs.skip != 'true'
+        run: |
+          uv sync --frozen
+          uv run python scripts/push_schemas.py $MODIFIED_SCHEMAS
+
+  build:
+    name: Build Container Image
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: |
+          IMAGE_TAG="${GITHUB_SHA::7}"
+          docker build -t openbudget/data-pipeline:$IMAGE_TAG .
+          docker save -o data-pipeline-container.tar openbudget/data-pipeline:$IMAGE_TAG
+
+      - name: Upload Container Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-pipeline-container-${{ github.sha }}
+          path: data-pipeline-container.tar
+          retention-days: 7

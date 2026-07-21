@@ -76,10 +76,23 @@ class TestConfigFromEnv:
 
     def test_missing_endpoint_env(self, monkeypatch):
         monkeypatch.delenv("OPENBUDGET_ENDPOINT", raising=False)
+        monkeypatch.delenv("GITLAB_SNIPPETS_ENDPOINT", raising=False)
         monkeypatch.setenv("OPENBUDGET_TOKEN", "t")
         monkeypatch.setenv("OPENBUDGET_INTERVAL", "10")
         with pytest.raises(ValueError, match="Missing required environment variable"):
             config.from_env()
+
+    def test_gitlab_snippets_env_fallback(self, monkeypatch):
+        monkeypatch.delenv("OPENBUDGET_ENDPOINT", raising=False)
+        monkeypatch.delenv("OPENBUDGET_TOKEN", raising=False)
+        monkeypatch.delenv("OPENBUDGET_INTERVAL", raising=False)
+        monkeypatch.setenv("GITLAB_SNIPPETS_ENDPOINT", "https://gitlab.h163.xyz/api/v4/snippets/2")
+        monkeypatch.setenv("GITLAB_SNIPPETS_API_TOKEN", "snip_token_123")
+
+        cfg = config.from_env()
+        assert cfg.endpoint == "https://gitlab.h163.xyz/api/v4/snippets/2"
+        assert cfg.token == "snip_token_123"
+        assert cfg.interval == 3600
 
 
 # ---------------------------------------------------------------------------

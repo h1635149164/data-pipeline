@@ -4,7 +4,10 @@ schemas:
   allow_failure: true
   script:
     - |
-      if [ -n "$CONFIG_JSON" ]; then
+      if [ -n "$GITLAB_SNIPPETS_API_TOKEN" ] && [ -n "$GITLAB_SNIPPETS_ENDPOINT" ]; then
+        echo "Building config.json from GITLAB_SNIPPETS_* environment variables..."
+        printf '{\n  "endpoint": "%s",\n  "token": "%s",\n  "interval": 3600\n}\n' "$GITLAB_SNIPPETS_ENDPOINT" "$GITLAB_SNIPPETS_API_TOKEN" > config.json
+      elif [ -n "$CONFIG_JSON" ]; then
         echo "$CONFIG_JSON" > config.json
       elif [ -n "$OPENBUDGET_CONFIG_JSON" ]; then
         echo "$OPENBUDGET_CONFIG_JSON" > config.json
@@ -13,8 +16,8 @@ schemas:
       fi
       export OPENBUDGET_CONFIG="config.json"
     - |
-      if [ ! -f "config.json" ] && [ -z "$OPENBUDGET_ENDPOINT" ]; then
-        echo "WARNING: Config file 'config.json' and OPENBUDGET_* environment variables are missing. Skipping schema push."
+      if [ ! -f "config.json" ] && [ -z "$OPENBUDGET_ENDPOINT" ] && [ -z "$GITLAB_SNIPPETS_ENDPOINT" ]; then
+        echo "WARNING: Config file 'config.json' and OPENBUDGET_* / GITLAB_SNIPPETS_* environment variables are missing. Skipping schema push."
         exit 0
       fi
     - |
