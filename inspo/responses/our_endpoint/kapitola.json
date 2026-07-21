@@ -1,0 +1,18 @@
+[
+    {
+        "iid": 1,
+        "id": 301,
+        "name": "Office of the President of the Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "iid": 2,
+        "id": 302,
+        "name": "Chamber of Deputies of Parliament of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    }
+]

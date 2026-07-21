@@ -1,0 +1,9 @@
+stages:
+  - test
+  - schemas
+  - build
+
+include:
+  - local: .gitlab/ci/test.yml
+  - local: .gitlab/ci/schemas.yml
+  - local: .gitlab/ci/build.yml

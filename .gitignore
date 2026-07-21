@@ -1,0 +1,68 @@
+# Python Bytecode & Build Caches
+__pycache__/
+*.py[cod]
+*$py.class
+.mypy_cache/
+.ruff_cache/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Build & Package Distribution Output
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.hypothesis/
+
+# Environment Files, Local Configurations & Credentials
+config.json
+config*.json
+target.json
+*.local.json
+.env
+.env.*
+*.env
+*.pem
+*.key
+
+# Logs & Temporary Workspaces
+*.log
+logs/
+tmp/
+temp/
+scratch/
+
+# Containers & Exported Archives
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# IDEs & Code Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

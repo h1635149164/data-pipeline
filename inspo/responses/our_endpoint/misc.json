@@ -1,0 +1,13 @@
+{
+    "name": "miscelanious",
+    "link":"https://gitlab.h163.xyz/openbudget/data-pipeline/-/snippets/5",
+    "api": "https://gitlab.h163.xyz/api/v4/projects/openbudget%2Fdata-pipeline/snippets/5",
+    "content": [
+        {
+            "type": "misc/json",
+            "link": "https://example.com/misc.json",
+            "lastUpdate": "2023-10-01",
+            "comment": "this could be the json schema files for example"
+        }
+    ]
+}

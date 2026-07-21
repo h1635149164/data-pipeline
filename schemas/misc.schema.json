@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "misc.schema.json",
+  "title": "OpenBudget Miscellaneous Resource Index",
+  "description": "Schema for misc.json stored in the main GitLab snippet. An index of miscellaneous resources (JSON schemas, documentation) hosted alongside the pipeline data.",
+  "type": "object",
+  "required": ["name", "link", "api", "content"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for this miscellaneous resource collection.",
+      "examples": ["miscelanious"]
+    },
+    "link": {
+      "type": "string",
+      "format": "uri",
+      "description": "Human-readable URL to this snippet on the GitLab web interface."
+    },
+    "api": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full GitLab v4 API URL of this snippet."
+    },
+    "content": {
+      "type": "array",
+      "description": "List of individual miscellaneous resource entries (schemas, documentation, etc.).",
+      "items": {
+        "type": "object",
+        "required": ["type", "link", "lastUpdate"],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "MIME-like type identifier for the resource.",
+            "examples": ["schema/json", "misc/json"]
+          },
+          "link": {
+            "type": "string",
+            "format": "uri",
+            "description": "Raw URL to the resource file."
+          },
+          "lastUpdate": {
+            "type": "string",
+            "description": "ISO 8601 date of the last update.",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+          },
+          "comment": {
+            "type": "string",
+            "description": "Optional human-readable description of the resource."
+          }
+        }
+      }
+    }
+  }
+}

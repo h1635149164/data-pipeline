@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "target.schema.json",
+  "title": "OpenBudget Target Endpoint Config",
+  "description": "Czech state government source API endpoint configuration for target.json.",
+  "type": "object",
+  "required": ["chapters_endpoint", "summary_endpoint"],
+  "additionalProperties": false,
+  "properties": {
+    "chapters_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL for the chapter list (kapitola) API endpoint.",
+      "examples": ["https://monitor.statnipokladna.gov.cz/api/kapitola"]
+    },
+    "summary_endpoint": {
+      "type": "string",
+      "format": "uri",
+      "description": "Full URL for the monthly budget summary (souhrnny) API endpoint. Params ?obdobi=YYMM&kapitola=ID are appended at runtime.",
+      "examples": ["https://monitor.statnipokladna.gov.cz/api/rozpocet/souhrnny"]
+    }
+  }
+}

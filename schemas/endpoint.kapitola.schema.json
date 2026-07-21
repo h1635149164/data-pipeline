@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "endpoint.kapitola.schema.json",
+  "title": "Czech Official Kapitola API Response",
+  "description": "Schema for the official /api/kapitola endpoint response — a flat array of budget chapter objects.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "name", "startDate", "endDate", "expired"],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "integer",
+        "description": "State-assigned chapter identifier (may change due to political renumbering)."
+      },
+      "name": {
+        "type": "string",
+        "description": "Full English name of the ministry or government body.",
+        "minLength": 1
+      },
+      "startDate": {
+        "type": "string",
+        "description": "ISO 8601 date when this chapter became active.",
+        "examples": ["1900-01-01", "2017-01-01"]
+      },
+      "endDate": {
+        "type": "string",
+        "description": "ISO 8601 date when this chapter expired, or '9999-12-31' if still active.",
+        "examples": ["9999-12-31", "2024-04-30"]
+      },
+      "expired": {
+        "type": "boolean",
+        "description": "True when the chapter has been dissolved or merged."
+      }
+    }
+  }
+}

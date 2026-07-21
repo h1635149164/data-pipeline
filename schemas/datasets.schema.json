@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "datasets.schema.json",
+  "title": "OpenBudget Decennial Dataset Index",
+  "description": "Schema for datasets.json stored in the main GitLab snippet. Maps decade ranges to their dedicated GitLab snippets and lists contained yearly datasets.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["periodStart", "periodEnd", "api", "link", "datasets"],
+    "additionalProperties": false,
+    "properties": {
+      "periodStart": {
+        "type": "string",
+        "description": "First year of this decade period.",
+        "pattern": "^[0-9]{4}$",
+        "examples": ["2020", "2010"]
+      },
+      "periodEnd": {
+        "type": "string",
+        "description": "Last year of this decade period.",
+        "pattern": "^[0-9]{4}$",
+        "examples": ["2029", "2019"]
+      },
+      "api": {
+        "type": "string",
+        "format": "uri",
+        "description": "Full GitLab v4 API URL of the decade's dedicated snippet.",
+        "examples": ["https://gitlab.h163.xyz/api/v4/snippets/3"]
+      },
+      "link": {
+        "type": "string",
+        "format": "uri",
+        "description": "Human-readable URL to the decade snippet on the GitLab web interface.",
+        "examples": ["https://gitlab.h163.xyz/openbudget/data-pipeline/-/snippets/3"]
+      },
+      "datasets": {
+        "type": "array",
+        "description": "List of individual yearly dataset entries contained in this decade's snippet.",
+        "items": {
+          "type": "object",
+          "required": ["type", "year", "link", "lastUpdate"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Dataset type identifier.",
+              "enum": ["rozpocet"]
+            },
+            "year": {
+              "type": "integer",
+              "description": "Four-digit year this dataset covers.",
+              "minimum": 1990,
+              "maximum": 2099
+            },
+            "link": {
+              "type": "string",
+              "format": "uri",
+              "description": "Raw URL to the yearly file (e.g. vYYYY.json) inside the decade snippet."
+            },
+            "lastUpdate": {
+              "type": "string",
+              "description": "ISO 8601 date of the last update.",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            },
+            "sha256": {
+              "type": "string",
+              "description": "SHA-256 hex digest of the vYYYY.json payload at the time of last upload. Used to skip re-uploading unchanged datasets.",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

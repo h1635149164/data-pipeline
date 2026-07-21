@@ -1,0 +1,345 @@
+[
+    {
+        "id": 301,
+        "name": "Office of the President of the Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 302,
+        "name": "Chamber of Deputies of Parliament of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 303,
+        "name": "Senate Parliament of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 304,
+        "name": "Office of the Government of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 305,
+        "name": "Security information service",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 306,
+        "name": "Ministry of Foreign Affairs of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 307,
+        "name": "Ministry of Defence",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 308,
+        "name": "National Security Authority",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 309,
+        "name": "Office of the Public Defender of Rights",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 312,
+        "name": "Ministry of Finance",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 313,
+        "name": "Ministry of labour and social affairs",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 314,
+        "name": "Ministry of the Interior",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 315,
+        "name": "Ministry of the enviroment of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 317,
+        "name": "Ministry of regional development",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 321,
+        "name": "Grant Agency of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 322,
+        "name": "Ministry of industry and trade of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 327,
+        "name": "Ministry of Transport",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 328,
+        "name": "Czech Telecommunication Office",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 329,
+        "name": "Ministry of Agriculture",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 333,
+        "name": "Ministry of education, youth and sports",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 334,
+        "name": "Ministry of Culture",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 335,
+        "name": "Ministry of Health",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 336,
+        "name": "Ministry of Justice",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 343,
+        "name": "Office for the personal data protection",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 344,
+        "name": "Industrial Property Office",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 345,
+        "name": "Czech Statistical Office",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 346,
+        "name": "Czech office for surveying, mapping and cadastre",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 348,
+        "name": "Czech Mining Authority",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 349,
+        "name": "Energy Regulatory Office",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 353,
+        "name": "Office for the protection of competition",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 355,
+        "name": "Institute for the study of totalitarian regimes",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 358,
+        "name": "The Constitutional Court of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 359,
+        "name": "Office of the Czech Fiscal Council",
+        "startDate": "2017-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 361,
+        "name": "Academy of sciences of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 362,
+        "name": "National Sports Agency",
+        "startDate": "2019-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 363,
+        "name": "Supreme building authority",
+        "startDate": "2022-01-01",
+        "endDate": "2023-12-31",
+        "expired": true
+    },
+    {
+        "id": 364,
+        "name": "Digital and Information Agency",
+        "startDate": "2023-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 371,
+        "name": "Office for the supervision of political parties and political movement",
+        "startDate": "2017-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 372,
+        "name": "Council for radio and television broadcasting",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 373,
+        "name": "Transport Infrastructure Access Authority",
+        "startDate": "2017-01-01",
+        "endDate": "2024-04-30",
+        "expired": true
+    },
+    {
+        "id": 374,
+        "name": "Administration of state material reserves",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 375,
+        "name": "State office for nuclear safety",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 376,
+        "name": "General inspection of security corps",
+        "startDate": "2012-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 377,
+        "name": "Technology Agency of the Czech Republic",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 378,
+        "name": "National Cyber and Information Security Agency",
+        "startDate": "2017-08-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 381,
+        "name": "Supreme Audit Office",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 396,
+        "name": "State Debt",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 397,
+        "name": "State Financial Assets Transactions",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    },
+    {
+        "id": 398,
+        "name": "General Treasury Management",
+        "startDate": "1900-01-01",
+        "endDate": "9999-12-31",
+        "expired": false
+    }
+]

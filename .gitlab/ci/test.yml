@@ -1,0 +1,12 @@
+test:
+  stage: test
+  image: ghcr.io/astral-sh/uv:python3.14-bookworm-slim
+  script:
+    - uv sync --frozen
+    - uv run pytest -v
+    - uv run mypy src
+    - uv run ruff check
+  artifacts:
+    when: always
+    paths:
+      - .coverage

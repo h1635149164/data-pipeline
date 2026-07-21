@@ -1,0 +1,267 @@
+{
+    "name": "Czech Republic",
+    "budget": {
+        "whole": {
+            "approved": 0,
+            "afterChanges": 0,
+            "finalBudget": 0,
+            "reality": 0
+        },
+        "details": [
+            {
+                "net": "revenue",
+                "approved": 0,
+                "afterChanges": 0,
+                "finalBudget": 0,
+                "reality": 0,
+                "items": [
+                    {
+                        "name": "revenue type",
+                        "code": "",
+                        "budget": {
+                            "approved": 0,
+                            "afterChanges": 0,
+                            "finalBudget": 0,
+                            "reality": 0
+                        },
+                        "items": [
+                            {
+                                "name": "revenue subtype",
+                                "code": "",
+                                "budget": {
+                                    "approved": 0,
+                                    "afterChanges": 0,
+                                    "finalBudget": 0,
+                                    "reality": 0
+                                },
+                                "items": [
+                                    {
+                                        "name": "revenue subsubtype",
+                                        "code": "111",
+                                        "budget": {
+                                            "approved": 0,
+                                            "afterChanges": 0,
+                                            "finalBudget": 0,
+                                            "reality": 0
+                                        },
+                                        "items": []
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "revenue subtype",
+                                "code": "",
+                                "note": "",
+                                "budget": {
+                                    "approved": 0,
+                                    "afterChanges": 0,
+                                    "finalBudget": 0,
+                                    "reality": 0
+                                },
+                                "items": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "net": "expenditure",
+                "approved": 0,
+                "afterChanges": 0,
+                "finalBudget": 0,
+                "reality": 0,
+                "items": [
+                    {
+                        "name": "expenditure type",
+                        "code": "",
+                        "budget": {
+                            "approved": 0,
+                            "afterChanges": 0,
+                            "finalBudget": 0,
+                            "reality": 0
+                        },
+                        "items": [
+                            {
+                                "name": "expenditure subtype",
+                                "code": "",
+                                "budget": {
+                                    "approved": 0,
+                                    "afterChanges": 0,
+                                    "finalBudget": 0,
+                                    "reality": 0
+                                },
+                                "items": [
+                                    {
+                                        "name": "expenditure subsubtype",
+                                        "code": "111",
+                                        "budget": {
+                                            "approved": 0,
+                                            "afterChanges": 0,
+                                            "finalBudget": 0,
+                                            "reality": 0
+                                        },
+                                        "items": []
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "expenditure subtype",
+                                "code": "",
+                                "note": "",
+                                "budget": {
+                                    "approved": 0,
+                                    "afterChanges": 0,
+                                    "finalBudget": 0,
+                                    "reality": 0
+                                },
+                                "items": []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "calc": {
+        "budget": {
+            "approved": 0,
+            "afterChanges": 0,
+            "finalBudget": 0,
+            "reality": 0
+        },
+        "delta": {
+            "approved": 0,
+            "afterChanges": 0,
+            "finalBudget": 0,
+            "reality": 0
+        }
+    },
+    "resorts": [
+        {
+            "name": "Ministry of labour and social affairs",
+            "code": "313",
+            "budget": {
+                "whole": {
+                    "approved": 0,
+                    "afterChanges": 0,
+                    "finalBudget": 0,
+                    "reality": 0
+                }
+            },
+            "details": [
+                {
+                    "net": "revenue",
+                    "approved": 0,
+                    "afterChanges": 0,
+                    "finalBudget": 0,
+                    "reality": 0,
+                    "items": [
+                        {
+                            "name": "revenue type",
+                            "code": "",
+                            "budget": {
+                                "approved": 0,
+                                "afterChanges": 0,
+                                "finalBudget": 0,
+                                "reality": 0
+                            },
+                            "items": [
+                                {
+                                    "name": "revenue subtype",
+                                    "code": "",
+                                    "budget": {
+                                        "approved": 0,
+                                        "afterChanges": 0,
+                                        "finalBudget": 0,
+                                        "reality": 0
+                                    },
+                                    "items": [
+                                        {
+                                            "name": "revenue subsubtype",
+                                            "code": "111",
+                                            "budget": {
+                                                "approved": 0,
+                                                "afterChanges": 0,
+                                                "finalBudget": 0,
+                                                "reality": 0
+                                            },
+                                            "items": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "revenue subtype",
+                                    "code": "",
+                                    "note": "",
+                                    "budget": {
+                                        "approved": 0,
+                                        "afterChanges": 0,
+                                        "finalBudget": 0,
+                                        "reality": 0
+                                    },
+                                    "items": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "net": "expenditure",
+                    "approved": 0,
+                    "afterChanges": 0,
+                    "finalBudget": 0,
+                    "reality": 0,
+                    "items": [
+                        {
+                            "name": "expenditure type",
+                            "code": "",
+                            "budget": {
+                                "approved": 0,
+                                "afterChanges": 0,
+                                "finalBudget": 0,
+                                "reality": 0
+                            },
+                            "items": [
+                                {
+                                    "name": "expenditure subtype",
+                                    "code": "",
+                                    "budget": {
+                                        "approved": 0,
+                                        "afterChanges": 0,
+                                        "finalBudget": 0,
+                                        "reality": 0
+                                    },
+                                    "items": [
+                                        {
+                                            "name": "expenditure subsubtype",
+                                            "code": "111",
+                                            "budget": {
+                                                "approved": 0,
+                                                "afterChanges": 0,
+                                                "finalBudget": 0,
+                                                "reality": 0
+                                            },
+                                            "items": []
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "expenditure subtype",
+                                    "code": "",
+                                    "note": "",
+                                    "budget": {
+                                        "approved": 0,
+                                        "afterChanges": 0,
+                                        "finalBudget": 0,
+                                        "reality": 0
+                                    },
+                                    "items": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "v_year.schema.json",
+  "title": "OpenBudget Yearly Budget Dataset",
+  "description": "Schema for vYYYY.json files (e.g. v2026.json) stored in decennial GitLab snippets. Contains the full budget tree for one year, including calculated and aggregated fields.",
+  "type": "object",
+  "required": ["name", "budget", "calc", "resorts"],
+  "additionalProperties": false,
+  "definitions": {
+    "budget_values": {
+      "type": "object",
+      "required": ["approved", "afterChanges", "finalBudget", "reality"],
+      "additionalProperties": false,
+      "properties": {
+        "approved": { "type": "number" },
+        "afterChanges": { "type": "number" },
+        "finalBudget": { "type": "number" },
+        "reality": { "type": "number" }
+      }
+    },
+    "calc_object": {
+      "type": "object",
+      "description": "Calculated trickle-up values for a non-leaf node. calc.budget is the recursive sum of children; calc.delta = calc.budget - declared budget, exposing discrepancies.",
+      "required": ["budget", "delta"],
+      "additionalProperties": false,
+      "properties": {
+        "budget": { "$ref": "#/definitions/budget_values" },
+        "delta": { "$ref": "#/definitions/budget_values" }
+      }
+    },
+    "budget_item": {
+      "type": "object",
+      "required": ["name", "code", "budget", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "note": { "type": "string" },
+        "budget": {
+          "$ref": "#/definitions/budget_values",
+          "description": "Official declared budget values. Present on all nodes (leaf and non-leaf)."
+        },
+        "calc": {
+          "$ref": "#/definitions/calc_object",
+          "description": "Computed trickle-up values. Only present on non-leaf nodes (items is non-empty). Absent on leaf nodes."
+        },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/budget_item" }
+        }
+      }
+    },
+    "net_detail": {
+      "type": "object",
+      "required": ["net", "approved", "afterChanges", "finalBudget", "reality", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "net": { "type": "string", "enum": ["revenue", "expenditure"] },
+        "approved": { "type": "number", "description": "Official declared approved amount for this net type." },
+        "afterChanges": { "type": "number" },
+        "finalBudget": { "type": "number" },
+        "reality": { "type": "number" },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/budget_item" }
+        }
+      }
+    }
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Entity name (e.g., 'Czech Republic')."
+    },
+    "budget": {
+      "type": "object",
+      "required": ["whole", "details"],
+      "additionalProperties": false,
+      "properties": {
+        "whole": {
+          "$ref": "#/definitions/budget_values",
+          "description": "Official declared national net (revenues - expenditures)."
+        },
+        "details": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/net_detail" }
+        }
+      }
+    },
+    "calc": {
+      "$ref": "#/definitions/calc_object",
+      "description": "National-level trickle-up vs declared discrepancy. calc.budget = trickle-up net; calc.delta = calc.budget - budget.whole."
+    },
+    "resorts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "code", "budget", "details"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "code": { "type": "string" },
+          "budget": {
+            "type": "object",
+            "required": ["whole"],
+            "additionalProperties": false,
+            "properties": {
+              "whole": { "$ref": "#/definitions/budget_values" }
+            }
+          },
+          "details": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/net_detail" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "souhrnny.schema.json",
+  "title": "Czech Official Souhrnny (Monthly Summary) API Response",
+  "description": "Schema for /api/rozpocet/souhrnny?obdobi=YYMM&kapitola=ID — a recursive budget tree for a single chapter and timeframe.",
+  "type": "object",
+  "required": ["name", "budget", "children"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of this budget node (ministry name at the root level)."
+    },
+    "code": {
+      "type": "string",
+      "description": "Budget classification code (present on non-root nodes)."
+    },
+    "note": {
+      "type": "string",
+      "description": "Short human-readable note for this budget line item."
+    },
+    "budget": {
+      "$ref": "#/definitions/budgetValues"
+    },
+    "children": {
+      "type": "array",
+      "description": "Nested budget line items.",
+      "items": {
+        "$ref": "#"
+      }
+    }
+  },
+  "definitions": {
+    "budgetValues": {
+      "type": "object",
+      "description": "Budget values for a node across different budget phases.",
+      "required": ["approved", "afterChanges", "finalBudget", "reality"],
+      "additionalProperties": true,
+      "properties": {
+        "approved": {
+          "type": "number",
+          "description": "Approved budget amount (CZK)."
+        },
+        "afterChanges": {
+          "type": "number",
+          "description": "Budget after approved changes (CZK)."
+        },
+        "finalBudget": {
+          "type": "number",
+          "description": "Final budget amount (CZK). Zero if data not yet submitted."
+        },
+        "reality": {
+          "type": "number",
+          "description": "Actual execution amount (CZK)."
+        },
+        "sankeyApproved": {
+          "type": "number"
+        },
+        "sankeyAfterChanges": {
+          "type": "number"
+        },
+        "sankeyFinalBudget": {
+          "type": "number"
+        },
+        "sankeyReality": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

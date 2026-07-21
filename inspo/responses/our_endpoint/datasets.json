@@ -1,0 +1,47 @@
+[
+    {
+        "periodStart": "1990",
+        "periodEnd": "1999",
+        "link": "https://example.com/datasets-1990-1999",
+        "api": "https://gitlab.h163.xyz/api/v4/projects/openbudget%2Fdata-pipeline/snippets/99999",
+        "datasets": [
+            {
+                "type": "rozpocet",
+                "year": 1999,
+                "link": "https://example.com/dataset-1999",
+                "lastUpdate": "2023-10-01",
+                "sha256": "a3f1e2b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2"
+            }
+        ]
+    },
+    {
+        "periodStart": "2010",
+        "periodEnd": "2019",
+        "link": "https://gitlab.h163.xyz/openbudget/data-pipeline/-/snippets/4",
+        "api": "https://gitlab.h163.xyz/api/v4/projects/openbudget%2Fdata-pipeline/snippets/4",
+        "datasets": [
+            {
+                "type": "rozpocet",
+                "year": 2019,
+                "link": "https://example.com/dataset-2019",
+                "lastUpdate": "2023-10-01",
+                "sha256": "b4f2e3c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4"
+            }
+        ]
+    },
+    {
+        "periodStart": "2020",
+        "periodEnd": "2029",
+        "api": "https://gitlab.h163.xyz/api/v4/projects/openbudget%2Fdata-pipeline/snippets/3",
+        "link": "https://gitlab.h163.xyz/openbudget/data-pipeline/-/snippets/3",
+        "datasets": [
+            {
+                "type": "rozpocet",
+                "year": 2029,
+                "link": "https://example.com/dataset-2029",
+                "lastUpdate": "2023-10-01",
+                "sha256": "c5f3e4d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5"
+            }
+        ]
+    }
+]
