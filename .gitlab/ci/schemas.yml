@@ -1,6 +1,7 @@
 schemas:
   stage: schemas
   image: ghcr.io/astral-sh/uv:python3.14-bookworm-slim
+  allow_failure: true
   script:
     - |
       if [ -n "$CONFIG_JSON" ]; then
@@ -11,6 +12,11 @@ schemas:
         echo "$OPENBUDGET_CONFIG" > config.json
       fi
       export OPENBUDGET_CONFIG="config.json"
+    - |
+      if [ ! -f "config.json" ] && [ -z "$OPENBUDGET_ENDPOINT" ]; then
+        echo "WARNING: Config file 'config.json' and OPENBUDGET_* environment variables are missing. Skipping schema push."
+        exit 0
+      fi
     - |
       MODIFIED_SCHEMAS=""
       if [ "$CI_PIPELINE_SOURCE" = "web" ]; then
@@ -33,4 +39,5 @@ schemas:
         - schemas/*
         - schemas/**/*
     - if: '$CI_PIPELINE_SOURCE == "web"'
+
 
