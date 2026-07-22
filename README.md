@@ -61,16 +61,12 @@ Ensure [`uv`](https://github.com/astral-sh/uv) is installed on your system.
 
 ```
 data-pipeline/
-├── .agents/               # Context and roadmap documentation for agents
-│   ├── context.md        # Background on datasets (chapters, master summaries, YYMM traversal)
-│   └── goals.md          # Pipeline milestones and roadmap
 ├── inspo/                # Reference data snapshots (official & internal API outputs)
 ├── src/                  # Application source code
 │   ├── support/          # Modular functions (chapters, getenv, scrapper, storage)
 │   ├── main.py           # Pipeline runner
 │   └── task.py           # Scheduled sync execution
 ├── tests/                # Unit & integration test suite
-├── agents.md             # AI Agent rules & developer guidelines
 ├── pyproject.toml        # UV dependencies & configuration
 └── README.md             # Project documentation
 ```
